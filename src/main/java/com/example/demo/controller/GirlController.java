@@ -31,8 +31,9 @@ public class GirlController {
     }
 
     @GetMapping("/insert")
-    public void insert() {
+    public String insert() {
         girlService.insertTwo();
+        return "ok.";
     }
 
     @GetMapping("/print")

@@ -17,10 +17,10 @@ public class GirlControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @Test
-    public void girlList() throws Exception{
-        mvc.perform(MockMvcRequestBuilders.get("/girls"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("abc"));
-    }
+//    @Test
+//    public void girlList() throws Exception{
+//        mvc.perform(MockMvcRequestBuilders.get("/girls"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.content().string("abc"));
+//    }
 }
