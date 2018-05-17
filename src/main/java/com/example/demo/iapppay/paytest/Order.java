@@ -135,7 +135,7 @@ public class Order {
 	}
 	// 当客户端上使用H5 的时候下面的示例代码可以有所帮助。
 
-	public static String H5orPCpay(String transid) {
+	public static String H5orPCpay(String transid, String type) {
 		String pcurl = "https://web.iapppay.com/pc/gateway?";
 		String h5url = "https://web.iapppay.com/h5/gateway?";
 		JSONObject jsonObject = new JSONObject();
@@ -148,7 +148,12 @@ public class Order {
 		String sign = SignHelper.sign(content, IAppPaySDKConfig.APPV_KEY);
 		String data = "data=" + URLEncoder.encode(content) + "&sign=" + URLEncoder.encode(sign) + "&signtype=RSA";
 		System.out.println("可以直接在浏览器中访问该链接:" + h5url + data);// 我们的常连接版本 有PC 版本 和移动版本。 根据使用的环境不同请更换相应的URL:h5url,pcurl.
-		String url = h5url + data; // String url=pcurl+data; 可以直接更换 url=pcurl+data中的pcurl
+		String url = null;
+		if(type.equals("h5")){
+			url = h5url + data; // String url=pcurl+data; 可以直接更换 url=pcurl+data中的pcurl
+		}else if(type.equals("pc")){
+			url = pcurl + data;
+		}
 									// 为h5url，即可在手机浏览器中调出移动版本的收银台。
 //		BareBonesBrowserLaunch.openURL(url);
 		return url;
@@ -162,7 +167,7 @@ public class Order {
 		// float prce, String appuserid, String cpprivateinfo, String notifyurl)
 		CheckSign(IAppPaySDKConfig.APP_ID, IAppPaySDKConfig.WARES_ID_1, "测试银币", "1234567810", 0.01f, "108412312312310",
 				"1231231231111", "http://58.250.160.241:8888/IapppayCpSyncForPHPDemo/TradingResultsNotice.php");
-		H5orPCpay(transid);
+		H5orPCpay(transid, "h5");
 	}
 
 }
