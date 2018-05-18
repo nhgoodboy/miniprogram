@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.demo.iapppay.sign.BareBonesBrowserLaunch;
 import com.example.demo.iapppay.sign.SignHelper;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
@@ -46,6 +47,64 @@ public class Order {
 	 * @return 返回组装好的用于post的请求数据 .................
 	 */
 	static String transid;
+
+	public static String GetTransData(String appid, int waresid, String waresname, String cporderid, float price,
+								 String appuserid, String cpprivateinfo, String notifyurl) {
+
+		String json;
+		json = "appid:";
+		json += IAppPaySDKConfig.APP_ID;
+		json += " userid:";
+		json += appuserid;
+		json += " waresid:";
+		json += waresid;
+		json += "cporderid:";
+		json += cporderid;
+		System.out.println("json=" + json);
+
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("appid", IAppPaySDKConfig.APP_ID);
+		jsonObject.put("waresid", IAppPaySDKConfig.WARES_ID_1);
+		jsonObject.put("cporderid", cporderid);
+		jsonObject.put("currency", "RMB");
+		jsonObject.put("appuserid", appuserid);
+		// 以下是参数列表中的可选参数
+		if (!waresname.isEmpty()) {
+			jsonObject.put("waresname", waresname);
+		}
+		/*
+		 * 当使用的是 开放价格策略的时候 price的值是 程序自己 设定的价格，使用其他的计费策略的时候 price 不用传值
+		 */
+		jsonObject.put("price", price);
+		if (!cpprivateinfo.isEmpty()) {
+			jsonObject.put("cpprivateinfo", cpprivateinfo);
+		}
+		if (!notifyurl.isEmpty()) {
+			/*
+			 * 如果此处不传同步地址，则是以后台传的为准。
+			 */
+			jsonObject.put("notifyurl", notifyurl);
+		}
+		String content = jsonObject.toString();// 组装成 json格式数据
+		// 调用签名函数 重点注意： 请一定要阅读 sdk
+		// 包中的爱贝AndroidSDK3.4.4\03-接入必看-服务端接口说明及范例\爱贝服务端接入指南及示例0311\IApppayCpSyncForJava
+		// \接入必看.txt
+		// content="{\"tid\":\"32221706081600006810\",\"app\":\"301160131\",\"url_r\":\"https://staging.51zcd.com\",\"url_h\":\"https://staging.51zcd.com\"}";
+
+		String sign = SignHelper.sign(content, IAppPaySDKConfig.APPV_KEY);
+
+		String enContent = null;
+		String enSign = null;
+		try {
+			enContent = URLEncoder.encode(content, "UTF-8");
+			enSign = URLEncoder.encode(sign, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String data = "transdata=" + enContent + "&sign=" + enSign + "&signtype=RSA";// 组装请求参数
+		System.out.println("请求数据:" + data);
+		return data;
+	}
 
 	public static String ReqData(String appid, int waresid, String waresname, String cporderid, float price,
 			String appuserid, String cpprivateinfo, String notifyurl) {

@@ -5,6 +5,7 @@ import com.example.demo.service.IIapppayService;
 import org.springframework.stereotype.Service;
 
 import static com.example.demo.iapppay.paytest.Order.CheckSign;
+import static com.example.demo.iapppay.paytest.Order.GetTransData;
 
 @Service
 public class IapppayServiceImpl implements IIapppayService {
@@ -35,6 +36,15 @@ public class IapppayServiceImpl implements IIapppayService {
         String cporderid = String.valueOf(System.currentTimeMillis());
         transId = CheckSign(IAppPaySDKConfig.APP_ID, waresId, "一个银币", cporderid, 0.01f, "001",
                 "test", notifyurl);
-        return transId;
+        String respData = "transid=" + transId + "&appid=" + IAppPaySDKConfig.APP_ID;
+        return respData;
+    }
+
+    @Override
+    public String client_order(int waresId) {
+        String cporderid = String.valueOf(System.currentTimeMillis());
+        String transData = GetTransData(IAppPaySDKConfig.APP_ID, IAppPaySDKConfig.WARES_ID_1, "测试银币", cporderid, 0.01f,
+                "0002", "testclientOrderOne", notifyurl);
+        return transData;
     }
 }

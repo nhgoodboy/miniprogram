@@ -33,8 +33,14 @@ public class IapppayController {
     @GetMapping("/server_order")
     public String server_order(@RequestParam(value = "waresId") int waresId) {
         String transId = iapppayService.server_order(waresId);
-        String url =  H5orPCpay(transId, "pc");
         return transId;
+    }
+
+    @GetMapping("/client_order")
+    public String client_order(@RequestParam(value = "waresId") int waresId) {
+        String transData = iapppayService.client_order(waresId);
+        System.out.println(transData);
+        return transData;
     }
 
     @PostMapping("/notify")
