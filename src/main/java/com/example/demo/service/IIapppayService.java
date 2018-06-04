@@ -6,4 +6,6 @@ public interface IIapppayService {
     String pc_order(int waresId);
     String server_order(int waresId);
     String client_order(int waresId);
+    String contract_query(int waresId);
+    String contract_cancel(int waresId);
 }

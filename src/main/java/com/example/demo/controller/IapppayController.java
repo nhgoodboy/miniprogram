@@ -43,6 +43,20 @@ public class IapppayController {
         return transData;
     }
 
+    @GetMapping("/contract_query")
+    public String contract_query(@RequestParam(value = "waresId") int waresId) {
+        String resp = iapppayService.contract_query(waresId);
+        System.out.println(resp + ".....");
+        return resp;
+    }
+
+    @GetMapping("/contract_cancel")
+    public String contract_cancel(@RequestParam(value = "waresId") int waresId) {
+        String resp = iapppayService.contract_cancel(waresId);
+        System.out.println(resp + ".....");
+        return resp;
+    }
+
     @PostMapping("/notify")
     public void notify(@Valid Notify notify){
         System.out.println(notify);

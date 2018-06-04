@@ -47,4 +47,14 @@ public class IapppayServiceImpl implements IIapppayService {
                 "0002", "testclientOrderOne", notifyurl);
         return transData;
     }
+
+    @Override
+    public String contract_query(int waresId) {
+        return com.example.demo.iapppay.paytest.QueryContract.CheckSign(IAppPaySDKConfig.APP_ID, "001", 2);
+    }
+
+    @Override
+    public String contract_cancel(int waresId) {
+        return com.example.demo.iapppay.paytest.ContractCancel.CheckSign(IAppPaySDKConfig.APP_ID, "001", 2);
+    }
 }

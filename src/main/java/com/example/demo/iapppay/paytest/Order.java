@@ -53,7 +53,7 @@ public class Order {
 
 		String json;
 		json = "appid:";
-		json += IAppPaySDKConfig.APP_ID;
+		json += appid;
 		json += " userid:";
 		json += appuserid;
 		json += " waresid:";
@@ -111,7 +111,7 @@ public class Order {
 
 		String json;
 		json = "appid:";
-		json += IAppPaySDKConfig.APP_ID;
+		json += appid;
 		json += " userid:";
 		json += appuserid;
 		json += " waresid:";
@@ -121,8 +121,8 @@ public class Order {
 		System.out.println("json=" + json);
 
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("appid", IAppPaySDKConfig.APP_ID);
-		jsonObject.put("waresid", IAppPaySDKConfig.WARES_ID_1);
+		jsonObject.put("appid", appid);
+		jsonObject.put("waresid", waresid);
 		jsonObject.put("cporderid", cporderid);
 		jsonObject.put("currency", "RMB");
 		jsonObject.put("appuserid", appuserid);
@@ -158,7 +158,7 @@ public class Order {
 	// 数据验签
 	public static String CheckSign(String appid, int waresid, String waresname, String cporderid, float price,
 			String appuserid, String cpprivateinfo, String notifyurl) {
-		String reqData = ReqData(IAppPaySDKConfig.APP_ID, IAppPaySDKConfig.WARES_ID_1, waresname, cporderid, price,
+		String reqData = ReqData(appid, waresid, waresname, cporderid, price,
 				appuserid, cpprivateinfo, notifyurl);
 		String respData = HttpUtils.sentPost("http://ipay.iapppay.com:9999/payapi/order", reqData, "UTF-8"); // 请求验证服务端
 		System.out.println("响应数据：" + respData);

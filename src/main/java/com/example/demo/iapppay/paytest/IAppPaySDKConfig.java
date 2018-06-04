@@ -21,6 +21,7 @@ public class IAppPaySDKConfig {
 	 * 编号对应商品名称为：1
 	 */
 	public final static int WARES_ID_1 = 1;
+	public final static int WARES_ID_2 = 2;
 
 	/**
 	 * 应用私钥： 用于对商户应用发送到平台的数据进行加密
