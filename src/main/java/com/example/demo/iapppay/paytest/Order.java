@@ -1,7 +1,6 @@
 package com.example.demo.iapppay.paytest;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.demo.iapppay.sign.BareBonesBrowserLaunch;
 import com.example.demo.iapppay.sign.SignHelper;
 
 import java.io.UnsupportedEncodingException;
@@ -92,7 +91,6 @@ public class Order {
 		// content="{\"tid\":\"32221706081600006810\",\"app\":\"301160131\",\"url_r\":\"https://staging.51zcd.com\",\"url_h\":\"https://staging.51zcd.com\"}";
 
 		String sign = SignHelper.sign(content, IAppPaySDKConfig.APPV_KEY);
-
 		String enContent = null;
 		String enSign = null;
 		try {
@@ -119,8 +117,7 @@ public class Order {
 		json += "cporderid:";
 		json += cporderid;
 		System.out.println("json=" + json);
-
-		JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
 		jsonObject.put("appid", appid);
 		jsonObject.put("waresid", waresid);
 		jsonObject.put("cporderid", cporderid);
@@ -151,9 +148,9 @@ public class Order {
 
 		String sign = SignHelper.sign(content, IAppPaySDKConfig.APPV_KEY);
 		String data = "transdata=" + content + "&sign=" + sign + "&signtype=RSA";// 组装请求参数
-		System.out.println("请求数据:" + data);
-		return data;
-	}
+        System.out.println("请求数据:" + data);
+        return data;
+    }
 
 	// 数据验签
 	public static String CheckSign(String appid, int waresid, String waresname, String cporderid, float price,
@@ -200,8 +197,8 @@ public class Order {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("tid", transid);
 		jsonObject.put("app", IAppPaySDKConfig.APP_ID);
-		jsonObject.put("url_r", "http://58.250.160.241:8888/IapppayCpSyncForPHPDemo/Test.php");
-		jsonObject.put("url_h", "http://58.250.160.241:8888/IapppayCpSyncForPHPDemo/Test.php");
+//		jsonObject.put("url_r", "whttp://58.250.160.241:8888/IapppayCpSyncForPHPDemo/Test.php");
+//		jsonObject.put("url_h", "whttp://58.250.160.241:8888/IapppayCpSyncForPHPDemo/Test.php");
 
 		String content = jsonObject.toString();
 		String sign = SignHelper.sign(content, IAppPaySDKConfig.APPV_KEY);

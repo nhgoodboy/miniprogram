@@ -35,10 +35,7 @@ public class Student {
             return false;
         }
         Student student = (Student) obj;
-        if (id != null ? id.equals(student.id) : student.id != null) {
-            return false;
-        }
-        return true;
+        return id != null ? !id.equals(student.id) : student.id == null;
     }
 
     @Override

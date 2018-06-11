@@ -16,8 +16,12 @@ import java.util.concurrent.Future;
 @RequestMapping("tasks")
 public class DoTaskController {
 
+    private final AsyncTask asyncTask;
+
     @Autowired
-    private AsyncTask asyncTask;
+    public DoTaskController(AsyncTask asyncTask) {
+        this.asyncTask = asyncTask;
+    }
 
     @RequestMapping("test")
     public String test() throws Exception {

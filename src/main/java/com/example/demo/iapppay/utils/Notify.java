@@ -2,15 +2,16 @@ package com.example.demo.iapppay.utils;
 
 public class Notify {
 
-    private Transdata transdata;
+    private String transdata;
     private String sign;
     private String signtype;
 
-    public Transdata getTransdata() {
+
+    public String getTransdata() {
         return transdata;
     }
 
-    public void setTransdata(Transdata transdata) {
+    public void setTransdata(String transdata) {
         this.transdata = transdata;
     }
 

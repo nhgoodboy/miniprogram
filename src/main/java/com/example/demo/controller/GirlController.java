@@ -16,14 +16,18 @@ import javax.validation.Valid;
 @RequestMapping("/girl")
 public class GirlController {
 
-    @Autowired
-    private GirlProperties girlProperties;
+    private final GirlProperties girlProperties;
+
+    private final GirlService girlService;
+
+    private final GirlRepository girlRepository;
 
     @Autowired
-    private GirlService girlService;
-
-    @Autowired
-    private GirlRepository girlRepository;
+    public GirlController(GirlProperties girlProperties, GirlService girlService, GirlRepository girlRepository) {
+        this.girlProperties = girlProperties;
+        this.girlService = girlService;
+        this.girlRepository = girlRepository;
+    }
 
     @GetMapping("/say")
     public String say(@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
@@ -42,7 +46,7 @@ public class GirlController {
     }
 
     @PostMapping("/add")
-    public Result<Girl> girlAdd(@Valid Girl girl, BindingResult bindingResult) {
+    public Result girlAdd(@Valid Girl girl, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResultUtil.error(1, bindingResult.getFieldError().getDefaultMessage());
         }

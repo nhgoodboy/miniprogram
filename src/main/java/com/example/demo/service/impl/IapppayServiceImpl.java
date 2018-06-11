@@ -17,7 +17,7 @@ public class IapppayServiceImpl implements IIapppayService {
     public String h5_order(int waresId) {
 
         String cporderid = String.valueOf(System.currentTimeMillis());
-        transId = CheckSign(IAppPaySDKConfig.APP_ID, waresId, "一个银币", cporderid, 0.01f, "001",
+        transId = CheckSign(IAppPaySDKConfig.APP_ID, 3, "传入型asd商品", cporderid, 0.02f, "001",
                 "test", notifyurl);
         return transId;
     }

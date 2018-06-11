@@ -13,7 +13,7 @@ import java.io.IOException;
 public class MyFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         System.out.println("过滤器初始化");
     }
 

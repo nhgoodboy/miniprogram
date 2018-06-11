@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.iapppay.paytest.IAppPaySDKConfig;
+import com.example.demo.iapppay.sign.SignHelper;
 import com.example.demo.iapppay.utils.Notify;
 import com.example.demo.service.IIapppayService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,12 @@ import static com.example.demo.iapppay.paytest.Order.H5orPCpay;
 @RequestMapping("/iapppay")
 public class IapppayController {
 
+    private final IIapppayService iapppayService;
+
     @Autowired
-    private IIapppayService iapppayService;
+    public IapppayController(IIapppayService iapppayService) {
+        this.iapppayService = iapppayService;
+    }
 
     @GetMapping("/h5_order")
     public String h5_order(@RequestParam(value = "waresId") int waresId) {
@@ -32,8 +38,7 @@ public class IapppayController {
 
     @GetMapping("/server_order")
     public String server_order(@RequestParam(value = "waresId") int waresId) {
-        String transId = iapppayService.server_order(waresId);
-        return transId;
+        return iapppayService.server_order(waresId);
     }
 
     @GetMapping("/client_order")
@@ -57,8 +62,20 @@ public class IapppayController {
         return resp;
     }
 
-    @PostMapping("/notify")
-    public void notify(@Valid Notify notify){
-        System.out.println(notify);
+    @PostMapping("/tradingResultsNotice")
+    public String tradingResultsNotice(@Valid Notify notify){
+        String transdata = notify.getTransdata();
+        System.out.println(transdata);
+        String sign = notify.getSign();
+        System.out.println(sign);
+        String signtype = notify.getSigntype();
+        System.out.println(signtype);
+        if (SignHelper.verify(transdata, sign, IAppPaySDKConfig.PLATP_KEY)) {
+            System.out.println("verify ok");
+            return "success";
+        } else {
+            System.out.println("verify fail");
+            return "failure";
+        }
     }
 }

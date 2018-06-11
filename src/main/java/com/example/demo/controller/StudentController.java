@@ -18,8 +18,12 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
 
+    private final IStudentService studentService;
+
     @Autowired
-    private IStudentService studentService;
+    public StudentController(IStudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @GetMapping("/getStudentInfo")
     public List<Student> getStudentInfo() {

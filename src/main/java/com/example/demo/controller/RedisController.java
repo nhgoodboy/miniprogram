@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("redis")
 public class RedisController {
 
+    private final StringRedisTemplate strRedis;
+
     @Autowired
-    private StringRedisTemplate strRedis;
+    public RedisController(StringRedisTemplate strRedis) {
+        this.strRedis = strRedis;
+    }
 
 //    @Resource
 //    private RedisTemplate<String, String> redisTemplate;
