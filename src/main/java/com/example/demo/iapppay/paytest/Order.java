@@ -157,7 +157,7 @@ public class Order {
 			String appuserid, String cpprivateinfo, String notifyurl) {
 		String reqData = ReqData(appid, waresid, waresname, cporderid, price,
 				appuserid, cpprivateinfo, notifyurl);
-		String respData = HttpUtils.sentPost("http://ipay.iapppay.com:9999/payapi/order", reqData, "UTF-8"); // 请求验证服务端
+		String respData = HttpUtils.sentPost("https://cp.iapppay.com/payapi/order", reqData, "UTF-8"); // 请求验证服务端
 		System.out.println("响应数据：" + respData);
 
 		/*---------------------------------------------如果得到成功响应的结果-----------------------------------------------------------*/
