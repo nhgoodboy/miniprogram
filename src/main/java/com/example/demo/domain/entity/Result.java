@@ -1,5 +1,7 @@
 package com.example.demo.domain.entity;
 
+import com.example.demo.domain.enums.ResultEnum;
+
 public class Result<T> {
 
     private Integer code;
@@ -28,5 +30,14 @@ public class Result<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public Result() {
+
+    }
+
+    public Result(ResultEnum resultEnum) {
+        this.code = resultEnum.getCode();
+        this.message = resultEnum.getMsg();
     }
 }

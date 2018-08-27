@@ -64,6 +64,7 @@ public class GirlController {
 
     @GetMapping("/index")
     public String index() {
+        System.out.println("start");
         return "index";
     }
 }

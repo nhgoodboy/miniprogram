@@ -39,10 +39,10 @@ public class BorrowBooks {
                             }
                             System.out.println("您已借书：" + books[serialNum - 1]);
                         } catch (ArrayIndexOutOfBoundsException e) {
-                            // TODO: handle exception
+                            // TODO: handler exception
                             System.out.println("图书不存在，请重新输入！");
                         } catch (InputMismatchException e) {
-                            // TODO: handle exception
+                            // TODO: handler exception
                             System.out.println("错误命令，请重新输入！");
                         }
                     }
@@ -61,7 +61,7 @@ public class BorrowBooks {
                                 System.out.println("图书不存在，请重新输入！");
                             }
                         } catch (InputMismatchException e) {
-                            // TODO: handle exception
+                            // TODO: handler exception
                             System.out.println("错误命令，请重新输入！");
                         }
                     }
@@ -69,7 +69,7 @@ public class BorrowBooks {
                     break;
                 }
             } catch (InputMismatchException e) {
-                // TODO: handle exception
+                // TODO: handler exception
                 System.out.println("错误命令，请重新输入！");
             }
         }

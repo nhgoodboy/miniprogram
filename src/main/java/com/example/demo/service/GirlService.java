@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.entity.Girl;
 import com.example.demo.domain.enums.ResultEnum;
-import com.example.demo.exception.GirlException;
+import com.example.demo.exception.GlobalException;
 import com.example.demo.repository.GirlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,9 +39,9 @@ public class GirlService {
         Girl girl = optional.get();
         Integer age = girl.getAge();
         if(age < 10) {
-            throw new GirlException(ResultEnum.PRIMARY_SCHOOL);
+            throw new GlobalException(ResultEnum.PRIMARY_SCHOOL);
         }else if(age > 10 && age < 16) {
-            throw new GirlException(ResultEnum.MIDDLE_SCHOOL);
+            throw new GlobalException(ResultEnum.MIDDLE_SCHOOL);
         }
     }
 

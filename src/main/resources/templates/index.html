@@ -3,11 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello world</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 </head>
 <body>
 <!--/*@thymesVar id="name" type="java.lang.String"*/-->
-Hello world!!!
-<h1 th:text="${name}"/>
-<!--<p th:></p>-->
+<div id="app123">
+    Hello world!!!
+    <h1 th:text="${name}"/><br>
+    <h1 th:text="${name}"/><br>
+    {{ message }}<br>
+    {{name}}
+</div>
+
+<script>
+    new Vue({
+        el: '#app123',
+        data: {
+            message: 'Hello Vue!',
+            name: "xiaochen"
+        }
+    })
+</script>
 </body>
 </html>

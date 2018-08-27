@@ -121,7 +121,7 @@ public class Order {
 		jsonObject.put("appid", appid);
 		jsonObject.put("waresid", waresid);
 		jsonObject.put("cporderid", cporderid);
-		jsonObject.put("currency", "RMB");
+		jsonObject.put("currency", "fdg");
 		jsonObject.put("appuserid", appuserid);
 		// 以下是参数列表中的可选参数
 		if (!waresname.isEmpty()) {
@@ -130,7 +130,7 @@ public class Order {
 		/*
 		 * 当使用的是 开放价格策略的时候 price的值是 程序自己 设定的价格，使用其他的计费策略的时候 price 不用传值
 		 */
-		jsonObject.put("price", price);
+		jsonObject.put("price", 1);
 		if (!cpprivateinfo.isEmpty()) {
 			jsonObject.put("cpprivateinfo", cpprivateinfo);
 		}
@@ -141,12 +141,14 @@ public class Order {
 			jsonObject.put("notifyurl", notifyurl);
 		}
 		String content = jsonObject.toString();// 组装成 json格式数据
+		System.out.println("content: " + content);
 		// 调用签名函数 重点注意： 请一定要阅读 sdk
 		// 包中的爱贝AndroidSDK3.4.4\03-接入必看-服务端接口说明及范例\爱贝服务端接入指南及示例0311\IApppayCpSyncForJava
 		// \接入必看.txt
 		// content="{\"tid\":\"32221706081600006810\",\"app\":\"301160131\",\"url_r\":\"https://staging.51zcd.com\",\"url_h\":\"https://staging.51zcd.com\"}";
 
 		String sign = SignHelper.sign(content, IAppPaySDKConfig.APPV_KEY);
+		System.out.println("sign= " + sign);
 		String data = "transdata=" + content + "&sign=" + sign + "&signtype=RSA";// 组装请求参数
         System.out.println("请求数据:" + data);
         return data;
@@ -186,7 +188,6 @@ public class Order {
 				System.out.println("verify fail");
 			}
 		}
-
 		return transid;
 	}
 	// 当客户端上使用H5 的时候下面的示例代码可以有所帮助。
@@ -197,11 +198,12 @@ public class Order {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("tid", transid);
 		jsonObject.put("app", IAppPaySDKConfig.APP_ID);
-//		jsonObject.put("url_r", "whttp://58.250.160.241:8888/IapppayCpSyncForPHPDemo/Test.php");
-//		jsonObject.put("url_h", "whttp://58.250.160.241:8888/IapppayCpSyncForPHPDemo/Test.php");
+//		jsonObject.put("url_r", "https://");
+//		jsonObject.put("url_h", "https://");
 
 		String content = jsonObject.toString();
 		String sign = SignHelper.sign(content, IAppPaySDKConfig.APPV_KEY);
+		System.out.println(sign + ".........");
 		String data = "data=" + URLEncoder.encode(content) + "&sign=" + URLEncoder.encode(sign) + "&signtype=RSA";
 		System.out.println("可以直接在浏览器中访问该链接:" + h5url + data);// 我们的常连接版本 有PC 版本 和移动版本。 根据使用的环境不同请更换相应的URL:h5url,pcurl.
 		String url = null;

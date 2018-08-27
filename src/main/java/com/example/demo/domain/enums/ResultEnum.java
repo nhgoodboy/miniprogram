@@ -1,11 +1,11 @@
 package com.example.demo.domain.enums;
 
 public enum ResultEnum {
-    UNKNOW_ERROR(-1, "未知错误"),
+
     SUCCESS(0, "成功"),
+    UNKNOWN_ERROR(-1, "未知错误"),
     PRIMARY_SCHOOL(100, "你可能还在上小学"),
-    MIDDLE_SCHOOL(101, "你可能在上初中")
-    ;
+    MIDDLE_SCHOOL(101, "你可能在上初中");
 
     private Integer code;
     private String msg;
@@ -21,5 +21,13 @@ public enum ResultEnum {
 
     public String getMsg() {
         return msg;
+    }
+
+    @Override
+    public String toString() {
+        return "ResultEnum{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                '}';
     }
 }
