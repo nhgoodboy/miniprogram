@@ -6,7 +6,11 @@ import com.example.demo.iapppay.paytest.IAppPaySDKConfig;
 import com.example.demo.iapppay.paytest.SignUtils;
 import com.example.demo.iapppay.sign.SignHelper;
 import org.junit.Test;
+import org.springframework.util.DigestUtils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -16,6 +20,18 @@ import java.util.Map;
  * 技术支持小工具
  */
 public class Utils {
+
+    /**
+     * MD5值校验
+     * @throws IOException
+     */
+    @Test
+    public void checkMD5() throws IOException {
+        String value = DigestUtils.md5DigestAsHex(new FileInputStream("C:\\Users\\Administrator\\Documents\\Tencent Files\\2937305839\\FileRecv\\1234qwe.apk"));
+        String originalValue = "";
+        System.out.println(value);
+        System.out.println(originalValue.equals(value));
+    }
 
     /**
      * 数据一致性检查
@@ -33,9 +49,10 @@ public class Utils {
      */
     @Test
     public void urlEncodeOrDecode() throws UnsupportedEncodingException {
-        String content = "transdata=%7B%22currency%22%3A%22RMB%22%2C%22notifyurl%22%3A%22http%3A%5C%2F%5C%2Fusdktest.ingcle.cn%5C%2Fcp%5C%2FPaycheck%5C%2Fverify%5C%2Fck%5C%2FNzjra1%22%2C%22cporderid%22%3A%2215350989522296621901113%22%2C%22price%22%3A%226.00%22%2C%22appuserid%22%3A%22572190%22%2C%22cpprivateinfo%22%3A%22justforfun%22%2C%22appid%22%3A%2250020669%22%2C%22waresid%22%3A%221%22%2C%22waresname%22%3A%2260%5Cu94bb%5Cu77f3%22%7D&sign=Uhvo%2BjJoiB%2BN8lsIMGHRkjn%2BnIYDR6nlus2yIc24qVrpP5gJfD%2F%2F30jB5J%2BQ7tiM5ZdHkxs5B9%2B6DCzhwAjXQSHIVveRtohv5AcdOkKU%2B3LckphrmpEDAx3mYIiz7gvVBrPKeVt%2Fyqjjyv4gPPOc3Bg2DstagriyyAf6R%2B%2ByyFI%3D&signtype=RSA\n";
+        String content = "transdata=%7B%22code%22%3A1002%2C%22errmsg%22%3A%22%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E9%94%99%E8%AF%AF%22%7D";
 //        System.out.println(URLEncoder.encode(content, "UTF-8"));
         System.out.println(URLDecoder.decode(content, "UTF-8"));
+        System.out.println();
     }
 
     /**
@@ -43,29 +60,31 @@ public class Utils {
      */
     @Test
     public void verify() {
-        String content = "";
-        String platp_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCt88Rh48GBv0hybpgt0tFUKSZ9RzCD/Wec+AJybeUH3CFbaZJKuQMvv4CV6OTMpIkkFrWzySWFOq3YV1n817miknjmsgukexYK4XHWYZ37byRBEUH/f9i3+tUm3yLrYEttkFUg0ntVdzgeACTCXMNZtsh3pBxFd0yaKNOmWBFpawIDAQAB";
+//        String content = "{\"appid\":\"3020117837\",\"appuserid\":\"728760\",\"cporderid\":\"CCMJ201883012700372\",\"cpprivate\":\"\",\"currency\":\"RMB\",\"feetype\":0,\"money\":1.00,\"paytype\":401,\"result\":0,\"transid\":\"32931808301505006030\",\"transtime\":\"2018-08-30+15:05:18\",\"transtype\":0,\"waresid\":1}";
+        String platp_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCKIbEJirsyLMqYZKNIsR0bmqnwtPluyE5UHrCkR4rfLoq1cIAVzFVsr7hnOTR3FJWAtyJGPNPXaK4eSQXZk3J595uD9uFfYihPP62orozQWhePmWu0McAdRf0xfJGcajZEarcnpgNXWNrDdm9M6QWHiW65PowXvKUJGBRHa6ZJswIDAQAB";
 
-        Map<String, String> reslutMap = SignUtils.getParmters(content);
-        String signtype = reslutMap.get("signtype"); // "RSA";
-        if (signtype != null) {
-            if (SignHelper.verify(reslutMap.get("transdata"), reslutMap.get("sign"), platp_key)) {
-                System.out.println("transdata: " + reslutMap.get("transdata"));
-                System.out.println("sign: " + reslutMap.get("sign"));
-                System.out.println("verify ok");
-            } else {
-                System.out.println("verify fail");
-            }
-        }
-
-//        String transdata = "{\"appid\":\"3020462271\",\"appuserid\":\"委屈的颐和\",\"cporderid\":\"20180808141941957\",\"cpprivate\":\"1|yj_ioioio15337079532169|20180808141941956\",\"currency\":\"RMB\",\"feetype\":0,\"money\":1.00,\"paytype\":116,\"result\":0,\"transid\":\"32611808081419428227\",\"transtime\":\"2018-08-08 14:19:51\",\"transtype\":0,\"waresid\":1}";
-//        String sign = "QbAnk1LVho/Y8ld2uRL5Rl2kb9q/cifIey6GMRlYl NOhl9jO3FUkxQu/l2XmwOCJgU8r/oulKLygKVXqtYeq6jBPvtMVG/GxDzyElqehOrqdnfbU3oJm8klfWzop4S/5sQ1/J3BdDqdqwUaLpgtY32/HJGy3YjiSiEbokHGm9Y=";
-//
-//        if (SignHelper.verify(transdata, sign, platp_key)) {
-//            System.out.println("verify ok");
-//        } else {
-//            System.out.println("verify fail");
+//        Map<String, String> reslutMap = SignUtils.getParmters(content);
+//        String signtype = reslutMap.get("signtype"); // "RSA";
+//        if (signtype != null) {
+//            if (SignHelper.verify(reslutMap.get("transdata"), reslutMap.get("sign"), platp_key)) {
+//                System.out.println("transdata: " + reslutMap.get("transdata"));
+//                System.out.println("sign: " + reslutMap.get("sign"));
+//                System.out.println("verify ok");
+//            } else {
+//                System.out.println("verify fail");
+//            }
 //        }
+
+        String transdata = "{\"appid\":\"3020117837\",\"appuserid\":\"728760\",\"cporderid\":\"CCMJ201883012700372\",\"cpprivate\":\"\",\"currency\":\"RMB\",\"feetype\":0,\"money\":1.00,\"paytype\":401,\"result\":0,\"transid\":\"32931808301505006030\",\"transtime\":\"2018-08-30+15:05:18\",\"transtype\":0,\"waresid\":1}";
+//        String transdata = "{\"appid\":\"3020117837\",\"appuserid\":\"728760\",\"cporderid\":\"CCMJ201883012700372\",\"cpprivate\":\"\",\"currency\":\"RMB\",\"feetype\":0,\"money\":1.00,\"paytype\":401,\"result\":0,\"transid\":\"32931808301505006030\",\"transtime\":\"2018-08-30 15:05:18\",\"transtype\":0,\"waresid\":1}";
+//        String sign = "FB3VBgq+vf4ywDGq65q9p1VTMAaczQwr2z5HThn07EBRrlKcgF5lo9X290WOUaG120CJFumpoyMBZ7BC1Q1F3XMTH7ZcZMRJGWzBUxhu8d82SXZDJFx8d6ud1zpxZ2tx5S15F4zgRkSTxEo0lUms/+jl/PdG72GkfBCkWweCD7Q";
+        String sign = "FB3VBgq+vf4ywDGq65q9p1VTMAaczQwr2z5HThn07EBRrlKcgF5lo9X290WOUaG120CJFumpoyMBZ7BC1Q1F3XMTH7ZcZMRJGWzBUxhu8d82SXZDJFx8d6ud1zpxZ2tx5S15F4zgRkSTxEo0lUms/+jl/PdG72GkfBCkWweCD7Q=";
+
+        if (SignHelper.verify(transdata, sign, platp_key)) {
+            System.out.println("verify ok");
+        } else {
+            System.out.println("verify fail");
+        }
     }
 
     /**
