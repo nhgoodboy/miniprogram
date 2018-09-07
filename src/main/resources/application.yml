@@ -31,6 +31,10 @@ spring:
     servlet:
       content-type: text/html
     cache: false   #关闭缓存，即时刷新，上线生产环境需要改为true
+  resources:
+    static-locations: classpath:/static   #用于描述静态资源的存放位置
+  mvc:
+    static-path-pattern: /**  #用于阐述HTTP请求地址,在SpringBoot中，默认配置的/**映射到/static。
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
