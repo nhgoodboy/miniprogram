@@ -1,8 +1,4 @@
-package com.musikouyi.miniprogram;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+package com.musikouyi.miniprogram.domain.entity;
 
 //@Entity
 public class TestEntity {

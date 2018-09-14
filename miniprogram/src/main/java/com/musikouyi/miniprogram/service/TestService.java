@@ -1,4 +1,4 @@
-package com.musikouyi.miniprogram;
+package com.musikouyi.miniprogram.service;
 
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +23,8 @@ public class TestService {
 //        }
         FileInputStream fileInputStream = (FileInputStream) multipartFile.getInputStream();
         String fileName = getUUID32() + ".png";
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(ResourceUtils.getURL("classpath:").getPath() + File.separator + "static" + File.separator + "images" + File.separator + fileName));
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(ResourceUtils.getURL("classpath:")
+                .getPath() + File.separator + "static" + File.separator + "images" + File.separator + fileName));
         byte[] bs = new byte[1024];
         int len;
         while ((len = fileInputStream.read(bs)) != -1) {
