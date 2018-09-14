@@ -1,10 +1,10 @@
-package com.musikouyi.miniprogram;
+package com.musikouyi.miniprogram.controller;
 
-import com.sun.imageio.plugins.common.ImageUtil;
+import com.musikouyi.miniprogram.domain.entity.TestEntity;
+import com.musikouyi.miniprogram.service.TestService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 
 @RestController
